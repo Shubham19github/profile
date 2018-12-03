@@ -24,6 +24,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,
               public userService : UserProvider) {
+
+                
   }
 
   ngOnInit() {
@@ -39,7 +41,14 @@ export class LoginPage {
 
   public async onSignIn(){
     let loginResult : ILoginResult = await this.userService.login(this.signinForm.value);
+    console.log(loginResult)
     if(loginResult.success == true){
+      localStorage.setItem('userName',loginResult.User.userName);
+      localStorage.setItem('email',loginResult.User.email);
+      localStorage.setItem('profileUploaded',loginResult.User.profileUploaded);
+      this.userService.user.userName = loginResult.User.userName
+      this.userService.user.email = loginResult.User.email
+      this.userService.user.profileUploaded = loginResult.User.profileUploaded
       this.navCtrl.push('ProfilePage', {userDetail : loginResult.User});
     }
   }

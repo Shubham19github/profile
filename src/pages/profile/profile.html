@@ -14,5 +14,10 @@
 
 
 <ion-content padding>
-  Welcome to profile {{profileDetails.userName}}
+  <div style="display: flex;flex-direction:column;justify-content: center;align-items: center">
+      <span *ngIf="userService.user.userName != undefined || userService.user.userName != null">Welcome to profile {{userService.user.userName}}</span><br>
+      <span><img bind-src="profileImage" id="myImage" alt="Image" width="150px" height="150px" style="border-radius:75px;border:1px solid black;object-fit: cover;'" (click)="inputFiles()" ></span> 
+      <input type="file" id="myFileInput" accept="image/*;capture=camera" style="display: none" (change)="detectFiles($event)">
+  </div>
+
 </ion-content>
